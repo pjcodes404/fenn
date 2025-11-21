@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smle"
-version = "0.0.1.dev9"
+version = "0.0.1.dev10"
 description = "Simple Machine Learning Enviroment"
 
 authors = [
@@ -12,7 +12,6 @@ authors = [
 ]
 
 readme = "README.md"
-content-type = "text/markdown"
 
 classifiers = [
   "Development Status :: 3 - Alpha",

@@ -1,7 +1,6 @@
 import traceback
 import sys
 from colorama import Fore, Style
-import uuid
 
 from smle.args import Parser
 from smle.logging import Logger

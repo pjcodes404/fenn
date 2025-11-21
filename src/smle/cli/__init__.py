@@ -1,48 +1,38 @@
 import argparse
-import smle.cli.empty as empty
-import smle.cli.mlp as mlp
+import smle.cli.init_command as init_command
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="smle")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    # --- Level 1: 'init' command ---
+    # --- Level 1 ---
     p_init = subparsers.add_parser("init", help="Initialize a smle project")
+    p_create = subparsers.add_parser("create", help="Create a file for a smle project")
 
-    # Create subparsers for 'init' (this enables 'smle init <template>')
-    init_subparsers = p_init.add_subparsers(dest="template", required=True, help="Project template")
+    #create_subparsers = p_init.add_subparsers(dest="file", required=True, help="Project file")
 
-    # --- Level 2: 'empty' template ---
-    # Usage: smle init empty [path] [--force]
-    p_empty = init_subparsers.add_parser("empty", help="Initialize an empty smle project")
-    p_empty.add_argument(
+    # --- Level 2 ---
+    p_init.add_argument(
+        "template",
+        nargs="?",
+        default="empty",
+        help="Target template",
+    )
+
+    p_init.add_argument(
         "path",
         nargs="?",
         default=".",
-        help="Target directory (default: current directory)",
+        help="Target directory",
     )
-    p_empty.add_argument(
+
+    p_init.add_argument(
         "--force",
         action="store_true",
         help="Overwrite existing files if needed",
     )
-    p_empty.set_defaults(func=empty.init)
 
-    # --- Level 2: 'mlp' template ---
-    # Usage: smle init mlp [path] [--force]
-    p_mlp = init_subparsers.add_parser("mlp", help="Initialize an mlp smle project")
-    p_mlp.add_argument(
-        "path",
-        nargs="?",
-        default=".",
-        help="Target directory (default: current directory)",
-    )
-    p_mlp.add_argument(
-        "--force",
-        action="store_true",
-        help="Overwrite existing files if needed",
-    )
-    p_mlp.set_defaults(func=mlp.init)
+    p_init.set_defaults(func=init_command.execute)
 
     return parser
 

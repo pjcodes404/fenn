@@ -1,20 +1,15 @@
-from smle import SMLEApp
+from smle import SMLE
 
-# Instantiate the application object
-app = SMLEApp()
+app = SMLE()
 
-# Register the main function
 @app.entrypoint
 def main(args):
-    """
-    This is the user's core logic function, which receives the config (args).
-    """
 
     # ========================================
     # TODO: ADD YOUR CODE HERE
     # ========================================
 
+    return
 
-# Run the application
 if __name__ == "__main__":
     app.run()

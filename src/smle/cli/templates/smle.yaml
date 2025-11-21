@@ -1,0 +1,21 @@
+project:
+seed:
+device:
+
+# Training configuration
+training:
+  epochs:
+  learning_rate:
+  weight_decay:
+  batch:
+    train:
+    test:
+
+# Logging
+logger:
+  dir: logger
+
+# Weights & Biases configuration
+wandb:
+  key: your_wandb_key
+  entity: your_wandb_account

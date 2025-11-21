@@ -32,7 +32,7 @@ class Logger:
         builtins.print = self._log_print
 
         # 4. Init WandB (Silently)
-        if self._args["logger"].get("use_wandb"):
+        if self._args.get("wandb"):
             self._init_wandb()
 
     def stop(self):
