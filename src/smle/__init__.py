@@ -1,10 +1,15 @@
 import traceback
 import sys
+import os
 from colorama import Fore, Style
+
+from dotenv import load_dotenv
+load_dotenv()
 
 from smle.args import Parser
 from smle.logging import Logger
 from smle.utils import generate_haiku_id
+from smle.notification import Notifier
 
 class SMLE:
 
@@ -19,6 +24,9 @@ class SMLE:
         self._args = self._parser.load_configuration()
         self._args["session_id"] = self._session_id
         self._logger = Logger(self._args)
+
+        webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+        self._notifier = Notifier(webhook_url)
 
     def entrypoint(self, entrypoint_fn):
         """
@@ -44,9 +52,15 @@ class SMLE:
         try:
             # The execution of the decorated user function
             print(f"{Fore.GREEN}[SMLE] Application starting from {Fore.LIGHTYELLOW_EX}{self._entrypoint_fn.__name__}{Fore.GREEN} entrypoint.{Style.RESET_ALL}")
-            return self._entrypoint_fn(self._args)
+
+            self._notifier.send_notification("start")
+            result = self._entrypoint_fn(self._args)
+            self._notifier.send_notification("end")
+
+            return result
         except Exception:
             # Print the traceback on failure
+            self._notifier.send_notification(traceback.format_exc())
             print(traceback.format_exc())
             sys.exit(1)
         finally:
