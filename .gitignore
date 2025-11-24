@@ -4,3 +4,4 @@ dist/
 wandb/
 examples/
 build/
+.DS_Store
