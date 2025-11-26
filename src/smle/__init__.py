@@ -2,11 +2,9 @@ import traceback
 import sys
 import os
 from colorama import Fore, Style
-<<<<<<< HEAD
 import requests
-=======
 from typing import Callable, Optional, Any
->>>>>>> main
+
 
 from smle.args import Parser
 from smle.logging import Logger
