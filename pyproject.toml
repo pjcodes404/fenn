@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fenn"
-version = "0.0.3"
+version = "0.0.5"
 description = "Friendly Environment for Neural Networks – a simple framework that automates the boring side of ML."
 
 authors = [
@@ -60,7 +60,7 @@ where = ["src"]
 fenn = "fenn.cli:main"
 
 [project.urls]
-"Homepage" = "https://fennpy.org"
-"Documentation" = "https://fennpy.org"
-"Source Code" = "https://github.com/blkdmr/fennpy"
-"Bug Tracker" = "https://github.com/blkdmr/fennpy/issues"
+"Homepage" = "https://pyfenn.org"
+"Documentation" = "https://pyfenn.org"
+"Source Code" = "https://github.com/blkdmr/fenn"
+"Bug Tracker" = "https://github.com/blkdmr/fenn/issues"
