@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿from colorama import Fore, Style
-=======
-from colorama import Fore, Style
->>>>>>> 5326110 (Fix: remove outdated notifier code from FENN main app)
 from typing import Callable, Optional, Any
 
 from fenn.args import Parser
@@ -22,26 +18,22 @@ class FENN:
 
         self._parser: Parser = Parser()
         self._keystore: KeyStore = KeyStore()
-<<<<<<< HEAD
-        self._logger: Logger = Logger.get_instance()   # SINGLETON
-=======
-        self._logger: Logger = Logger.get_instance()
->>>>>>> 5326110 (Fix: remove outdated notifier code from FENN main app)
+        self._logger: Logger = Logger.get_instance()   # Singleton
         self._config_file: str = None
 
         self._entrypoint_fn: Optional[Callable] = None
 
     def entrypoint(self, entrypoint_fn: Callable) -> Callable:
+        """
+        The decorator to register the main execution function.
+        """
         self._entrypoint_fn = entrypoint_fn
         return entrypoint_fn
 
     def run(self) -> Any:
-<<<<<<< HEAD
-=======
         """
         The method that executes the application's core logic.
         """
->>>>>>> 5326110 (Fix: remove outdated notifier code from FENN main app)
 
         if not self._entrypoint_fn:
             raise RuntimeError(
@@ -50,22 +42,28 @@ class FENN:
                 "to register your main function."
             )
 
+        # Load config
         self._parser.config_file = (
             self._config_file if self._config_file is not None else "fenn.yaml"
         )
         self._args = self._parser.load_configuration()
         self._args["session_id"] = self._session_id
 
+        # Start logging
         self._logger.start()
 
+        # Print parsed config (user logs)
         self._parser.print()
 
         try:
+            # System startup message
             self._logger.system_info(
                 f"Application starting from entrypoint: {self._entrypoint_fn.__name__}"
             )
 
-            return self._entrypoint_fn(self._args)
+            # Execute user function
+            result = self._entrypoint_fn(self._args)
+            return result
 
         finally:
             self._logger.stop()
@@ -76,4 +74,7 @@ class FENN:
 
     @config_file.setter
     def config_file(self, config_file: str) -> None:
+        """
+        The method to set the YAML file.
+        """
         self._config_file = config_file
